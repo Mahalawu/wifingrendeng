@@ -41,14 +41,12 @@ async function loadPaketData() {
         const res = await apiCall("getPaketData");
         console.log("Respon mentah getPaketData:", res);
 
-        // Ekstrak array dari berbagai kemungkinan struktur respon
         let dataList = [];
         if (Array.isArray(res)) {
             dataList = res;
         } else if (res && Array.isArray(res.data)) {
             dataList = res.data;
         } else if (res && typeof res === 'object') {
-            // Jika dikembalikan objek berisi nilai lain
             dataList = Object.values(res).find(val => Array.isArray(val)) || [];
         }
 
@@ -62,7 +60,28 @@ async function loadPaketData() {
 
         let html = '';
         dataList.forEach(p => {
-            html += `<div class="col"><div class="card h-100 card-paket"><div class="card-header-custom text-primary"><i class="fa-solid fa-gauge-high me-2 text-info"></i>${p.nama}</div><div class="card-body d-flex flex-column justify-content-between"><div><h2 class="fw-bold my-1 text-dark">${p.kecepatan}</h2><p class="text-muted small bg-light p-1 rounded">Fitur: ${p.fitur}</p></div><h5 class="text-success fw-bold mb-0">Rp ${Number(p.harga).toLocaleString('id-ID')}<span class="fs-6 text-muted fw-normal">/bln</span></h5></div></div></div>`;
+            const waUrl = getWaUrl(p);
+            
+            // Mengubah card menjadi link <a> atau menambahkan <a> pembungkus
+            html += `
+            <div class="col">
+                <a href="${waUrl}" target="_blank" class="text-decoration-none text-dark">
+                    <div class="card h-100 card-paket shadow-sm border-0 cursor-pointer">
+                        <div class="card-header-custom text-primary">
+                            <i class="fa-solid fa-gauge-high me-2 text-info"></i>${p.nama}
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div>
+                                <h2 class="fw-bold my-1 text-dark">${p.kecepatan}</h2>
+                                <p class="text-muted small bg-light p-1 rounded">Fitur: ${p.fitur}</p>
+                            </div>
+                            <h5 class="text-success fw-bold mb-0">
+                                Rp ${Number(p.harga).toLocaleString('id-ID')}<span class="fs-6 text-muted fw-normal">/bln</span>
+                            </h5>
+                        </div>
+                    </div>
+                </a>
+            </div>`;
         });
         document.getElementById('container-paket').innerHTML = html;
 
@@ -96,7 +115,8 @@ async function loadPaketDropdown() {
     } catch(err) {
         console.error("Error loading paket dropdown:", err);
     }
-}// ========================================
+}
+// ========================================
 // NAVIGATION FUNCTIONS
 // ========================================
 function switchTab(tabName) {
@@ -2146,4 +2166,11 @@ function formatTanggalRingkas(tglStr) {
 }
 if (window.location.hash === '#login-pelanggan') {
     switchTab('login-pelanggan');
+}
+
+const NOMOR_WA_ADMIN = "6285736430006"; // Ganti dengan nomor WA Admin (format 62)
+
+function getWaUrl(paket) {
+    const text = `Halo Admin, saya tertarik dengan paket *${paket.nama}* (${paket.kecepatan}) seharga Rp ${Number(paket.harga).toLocaleString('id-ID')}/bulan. Bisa minta informasi lebih lanjut?`;
+    return `https://wa.me/${NOMOR_WA_ADMIN}?text=${encodeURIComponent(text)}`;
 }
