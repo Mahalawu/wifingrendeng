@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pwa-wifi-billing-v1';
+const CACHE_NAME = 'Ngrendeng-wifi-billing-v1';
 const urlsToCache = [
   './',
   './index.html',
