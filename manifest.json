@@ -46,7 +46,7 @@
       "label": "Halaman Client Dalam"
     },
     {
-    "https://mahalawu.github.io/wifingrendeng/assets/scr4.png",
+      "src": "https://mahalawu.github.io/wifingrendeng/assets/scr4.png",
       "sizes": "512x1052",
       "type": "image/png",
       "form_factor": "narrow",
