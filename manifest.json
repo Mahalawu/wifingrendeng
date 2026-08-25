@@ -3,7 +3,7 @@
   "name": "Aplikasi Wifi Ngrendeng",
   "short_name": "Kasir Wifi",
   "start_url": "/wifingrendeng/",
-  "scope": "/wifiappngrendeng/",
+  "scope": "/wifingrendeng/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#1d4ed8",
