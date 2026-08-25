@@ -1,6 +1,6 @@
 // File: api.js - Smart Switch (Online / Offline)
 
-const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzWfqD0Cxwsubj36faIwNodMxCwnaI44S5e0C0Ax5W8xmWmlpMVXH4k8fVZWG69Evqk/exec";
+const GAS_API_URL = "https://script.google.com/macros/s/AKfycbw0hltFDq-F-n6AUODNq3Y4OZ8-MXmdvx7Bn5zicpVrNaU7TTr8mDiTNBPdWnQ_2EGa6g/exec";
 
 async function apiCall(action, payload = {}) {
   // ==========================================
